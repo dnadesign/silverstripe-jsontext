@@ -1,5 +1,5 @@
 {
-    "name": "phptek/jsontext",
+    "name": "firsttable/silverstripe-jsontext",
     "description": "JSON storage, querying and modification.",
     "type": "silverstripe-vendormodule",
     "keywords": ["silverstripe", "json", "dbfield", "query", "multi", "multivalue", "multivaluefield", "text", "JSONPath", "Postgres"],
@@ -13,14 +13,14 @@
     ],
     "require": {
         "php": ">=5.6.0",
-        "silverstripe/framework": "^4.0",
+        "silverstripe/framework": "^4.0 || ^5.0",
         "peekmo/jsonpath": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7"
+        "phpunit/phpunit": "^5.7 || ^9.5"
     },
     "support": {
-        "issues": "https://github.com/phptek/silverstripe-jsontext/issues"
+        "issues": "https://github.com/firsttable/silverstripe-jsontext/issues"
     },
     "suggest": {
       "silverstripe/cms": "Use silverstripe/cms package if you want to write to JSON-backed DB fields via the CMS module's UI"
