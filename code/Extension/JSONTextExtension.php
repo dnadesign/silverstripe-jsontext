@@ -78,7 +78,7 @@ class JSONTextExtension extends DataExtension
         $owner = $this->getOwner();
         $controller = Controller::curr();
         $postVars = $controller->getRequest()->postVars();
-        $fieldMap = $owner->config()->get('json_field_map');
+        $fieldMap = $this->getJSONFields();
         $doUpdate = (
             count($postVars) &&
             !empty($fieldMap)
@@ -108,7 +108,7 @@ class JSONTextExtension extends DataExtension
      */
     public function updateJSON(array $postVars, $owner)
     {
-        $jsonFieldMap = $owner->config()->get('json_field_map');
+        $jsonFieldMap = $this->getJSONFields();
 
         foreach ($jsonFieldMap as $jsonField => $mappedFields) {
             $jsonFieldData = [];
@@ -139,7 +139,7 @@ class JSONTextExtension extends DataExtension
     public function updateCMSFields(\SilverStripe\Forms\FieldList $fields)
     {
         $owner = $this->getOwner();
-        $jsonFieldMap = $owner->config()->get('json_field_map');
+        $jsonFieldMap = $this->getJSONFields();
 
         if (empty($jsonFieldMap)) {
             return;
@@ -164,4 +164,29 @@ class JSONTextExtension extends DataExtension
             }
         }
     }
+
+
+    /**
+     * Deal with userland declaration of a config static or a method for obtaining
+     * an array of CMS input fields. Existence of a method takes precedence over
+     * a config static.
+     *
+     * @return array
+     * @throws JSONTextConfigException When no field-mapping config is found.
+     */
+    public function getJSONFields()
+    {
+        $owner = $this->getOwner();
+
+        if (ClassInfo::hasMethod($owner, 'jsonFieldMap')) {
+            return $owner->jsonFieldMap();
+        }
+
+        if (!$owner->config()->get('json_field_map')) {
+            throw new JSONTextConfigException('No field map found.');
+        }
+
+        return $owner->config()->get('json_field_map');
+    }
+
 }
