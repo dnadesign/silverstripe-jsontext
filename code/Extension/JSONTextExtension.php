@@ -50,6 +50,8 @@ use SilverStripe\CMS\Controllers\CMSPageEditController;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Director;
 use SilverStripe\ORM\DataExtension;
+use PhpTek\JSONText\Exception\JSONTextConfigException;
+use SilverStripe\Core\ClassInfo;
 
 class JSONTextExtension extends DataExtension
 {
