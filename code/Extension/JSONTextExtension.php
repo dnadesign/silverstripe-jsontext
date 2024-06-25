@@ -81,8 +81,7 @@ class JSONTextExtension extends DataExtension
         $fieldMap = $owner->config()->get('json_field_map');
         $doUpdate = (
             count($postVars) &&
-            !empty($fieldMap) &&
-            in_array(get_class($controller), [CMSPageEditController::class])
+            !empty($fieldMap)
         );
 
         if (!$doUpdate) {
