@@ -174,18 +174,20 @@ class JSONTextExtension extends DataExtension
      * a config static.
      *
      * @return array
-     * @throws JSONTextConfigException When no field-mapping config is found.
      */
-    public function getJSONFields()
+    public function getJSONFields(): array
     {
         $owner = $this->getOwner();
 
         if (ClassInfo::hasMethod($owner, 'jsonFieldMap')) {
-            return $owner->jsonFieldMap();
+            $fieldMap = $owner->jsonFieldMap();
+            if (is_array($fieldMap)) {
+                return $fieldMap;
+            }
         }
 
-        if (!$owner->config()->get('json_field_map')) {
-            throw new JSONTextConfigException('No field map found.');
+        if (!is_array($owner->config()->get('json_field_map'))) {
+            return [];
         }
 
         return $owner->config()->get('json_field_map');
