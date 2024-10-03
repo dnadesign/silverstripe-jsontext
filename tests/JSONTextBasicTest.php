@@ -36,14 +36,14 @@ class JSONTextBasicTest extends SapphireTest
         foreach($this->fixtures as $name => $path) {
             $this->fixtures[$name] = realpath(__DIR__) . '/' . $path;
         }
-        
+
         parent::__construct();
     }
 
     /**
      * Setup the System Under Test for this test suite.
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
